@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Todos</title>
+        <link rel="stylesheet" href="/assets/css/styles.css" />
+        <link
+            href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+
+    <body>
+        <div class="todo">
+            <a href="/">Home Page</a>
+            <div class="todo__add-todo">
+                <h1>Add Todo</h1>
+                <form>
+                    <label for="item">Todo Item</label>
+                    <input
+                        type="text"
+                        name="item"
+                        id="item"
+                        placeholder="Add Todo Item"
+                        required
+                    />
+                    <label for="duration">Duration</label>
+                    <input type="date" name="duration" id="duration" required />
+                    <button type="submit">Save Todo</button>
+                </form>
+            </div>
+
+            <ul class="todo-list">
+                <h2>All Todos</h2>
+                <% todos.forEach(todo => { %>
+                <li>
+                    <span><%=todo.item %></span>
+
+                    <input type="checkbox" id="<%=todo._id %>" <%=
+                    todo.completed ? "checked": "" %> <%= todo.completed ?
+                    "disabled": "" %> />
+                    <button type="button" id="<%=todo._id %>" class="delete">
+                        Delete
+                    </button>
+                </li>
+                <% }) %>
+            </ul>
+        </div>
+        <script src="/assets/js/script.js"></script>
+    </body>
+</html>
