@@ -1,16 +1,26 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const socketIO = require("socket.io");
+const http = require("http");
+
 const todoController = require("./controllers/todoController");
+const chatController = require("./controllers/chatController");
 
 const app = express();
+const server = http.Server(app);
 
-app.use(require("easy-livereload")());
-
-mongoose.connect(
-    "mongodb+srv://holma:mongo@todo-rinr7.mongodb.net/test?retryWrites=true&w=majority",
-    { useUnifiedTopology: true, useNewUrlParser: true },
-);
+mongoose
+    .connect(
+        "mongodb+srv://holma:mongo@todo-rinr7.mongodb.net/test?retryWrites=true&w=majority",
+        { useUnifiedTopology: true, useNewUrlParser: true },
+    )
+    .then(msg => {
+        console.log("Connection to db was successful");
+    })
+    .catch(err => {
+        console.log(err);
+    });
 
 app.set("view engine", "ejs");
 app.use(express.static("./public"));
@@ -23,9 +33,22 @@ app.get("/", (req, res) => {
 
 // Init
 todoController(app);
+chatController(app);
 
 const PORT = process.env.NODE_ENV === "production" ? process.env.PORT : 3000;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Listening on port: ${PORT}`);
+});
+
+const io = socketIO(server);
+
+io.on("connection", socket => {
+    console.log("User connected");
+    socket.on("send-message", (data, callback) => {
+        socket.broadcast.emit("new-message", {
+            data,
+        });
+        callback({ status: true, data: data });
+    });
 });
