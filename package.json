@@ -17,9 +17,13 @@
         "nodemon": "^2.0.3"
     },
     "scripts": {
-        "start": "nodemon index.js",
+        "start": "node index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Cybertech",
-    "license": "MIT"
+    "license": "MIT",
+    "engines": {
+        "node": "12.16.1",
+        "npm": "6.13.4"
+    }
 }
