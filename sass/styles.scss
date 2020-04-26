@@ -195,7 +195,9 @@ ul::-webkit-scrollbar-thumb {
     }
 
     &__area {
-        width: 28rem;
+        max-width: 28rem;
+        width: 90%;
+        margin: 0 auto;
         box-shadow: 0 0 0.2rem #000;
         background: #fff;
         padding: 1rem 0.5rem 1rem;

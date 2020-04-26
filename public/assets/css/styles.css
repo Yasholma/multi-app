@@ -207,7 +207,9 @@ ul::-webkit-scrollbar-thumb {
 }
 
 .chat__area {
-  width: 28rem;
+  max-width: 28rem;
+  width: 90%;
+  margin: 0 auto;
   -webkit-box-shadow: 0 0 0.2rem #000;
           box-shadow: 0 0 0.2rem #000;
   background: #fff;
