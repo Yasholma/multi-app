@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const socketIO = require("socket.io");
 const http = require("http");
+const moment = require("moment");
 
 const todoController = require("./controllers/todoController");
 const chatController = require("./controllers/chatController");
@@ -46,9 +47,13 @@ const io = socketIO(server);
 io.on("connection", socket => {
     console.log("User connected");
     socket.on("send-message", (data, callback) => {
+        let mod = {
+            ...data,
+            time: moment(data.time).calendar(),
+        };
         socket.broadcast.emit("new-message", {
-            data,
+            data: mod,
         });
-        callback({ status: true, data: data });
+        callback({ status: true, data: mod });
     });
 });

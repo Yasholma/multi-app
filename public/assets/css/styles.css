@@ -270,6 +270,7 @@ ul::-webkit-scrollbar-thumb {
 .chat__output .name,
 .chat__output .time {
   font-size: 0.7rem;
+  display: inline-block;
 }
 
 .chat__output .time {
